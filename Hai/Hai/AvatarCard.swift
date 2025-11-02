@@ -11,16 +11,16 @@ struct AvatarCard: View {
     let attendee: Attendee
     let action: () -> Void
     
-    private var color: Color {
+    private var tintColor: Color? {
         switch attendee.state {
         case .notCalled:
-            return Color.gray.opacity(0.2)
+            return nil
         case .present:
-            return Color.blue.opacity(0.5)
+            return Color.gray
         case .absent:
-            return Color.red.opacity(0.5)
+            return Color(red: 0.87, green: 0.19, blue: 0.39) // Cerise
         case .excused:
-            return Color.yellow.opacity(0.5)
+            return Color.orange
         }
     }
     
@@ -29,17 +29,30 @@ struct AvatarCard: View {
             Text(attendee.avatar)
                 .font(.custom("Fontaku", size: 50))
                 .fontWeight(.regular)
+                .applyIf(tintColor != nil) { view in
+                    view.colorMultiply(tintColor!)
+                }
             Text(attendee.name)
                 .font(.custom("Fontaku", size: 16))
                 .fontWeight(.medium)
+                .applyIf(tintColor != nil) { view in
+                    view.foregroundStyle(tintColor!)
+                }
         }
-        .frame(width: 120, height: 120)
-        .background(
-            RoundedRectangle(cornerRadius: 10)
-                .fill(color)
-        )
+        .padding()
         .onTapGesture {
             action()
+        }
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func applyIf<T: View>(_ condition: Bool, transform: (Self) -> T) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
         }
     }
 }
