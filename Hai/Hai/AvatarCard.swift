@@ -16,11 +16,11 @@ struct AvatarCard: View {
         case .notCalled:
             return nil
         case .present:
-            return Color.gray
+            return Color(red: 0.3, green: 0.3, blue: 0.3) // Dark Gray
         case .absent:
-            return Color(red: 0.87, green: 0.19, blue: 0.39) // Cerise
+            return Color(red: 0.61, green: 0.13, blue: 0.27) // Dark Cerise
         case .excused:
-            return Color.orange
+            return Color(red: 0.7, green: 0.35, blue: 0.0) // Dark orange
         }
     }
     
