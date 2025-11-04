@@ -9,9 +9,7 @@ import Foundation
 
 enum AttendeeState: Int, Codable {
     case notCalled = 0
-    case present = 2
-    case absent = 3
-    case excused = 4
+    case calledOrAbsent = 1
 }
 
 struct Attendee: Identifiable, Codable, Hashable {

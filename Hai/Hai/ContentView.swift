@@ -54,12 +54,8 @@ struct ContentView: View {
         let currentState = manager.attendees[index].state
         switch currentState {
         case .notCalled:
-            manager.attendees[index].state = .present
-        case .present:
-            manager.attendees[index].state = .absent
-        case .absent:
-            manager.attendees[index].state = .excused
-        case .excused:
+            manager.attendees[index].state = .calledOrAbsent
+        case .calledOrAbsent:
             manager.attendees[index].state = .notCalled
         }
     }

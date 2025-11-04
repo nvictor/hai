@@ -22,16 +22,16 @@ class AttendeeManager: ObservableObject {
         loadAttendees()
         if attendees.isEmpty {
             attendees = [
-                Attendee(name: "Victor", avatar: "👨🏾‍💻"),
-                Attendee(name: "Aisha", avatar: "👩🏾"),
-                Attendee(name: "Alex", avatar: "🧑‍🚀"),
-                Attendee(name: "Sam", avatar: "👨🏻"),
-                Attendee(name: "Emily", avatar: "👩🏼"),
-                Attendee(name: "Daniel", avatar: "👨🏽‍🎓"),
-                Attendee(name: "Sophia", avatar: "👩‍⚕️"),
-                Attendee(name: "Chris", avatar: "👨‍🔧"),
-                Attendee(name: "Olivia", avatar: "👩‍🔬"),
-                Attendee(name: "Ethan", avatar: "👨‍🏫")
+                Attendee(name: "Victor", avatar: "\u{1F600}"),
+                Attendee(name: "Aisha", avatar: "\u{1F601}"),
+                Attendee(name: "Alex", avatar: "\u{1F602}"),
+                Attendee(name: "Sam", avatar: "\u{1F603}"),
+                Attendee(name: "Emily", avatar: "\u{1F604}"),
+                Attendee(name: "Daniel", avatar: "\u{1F605}"),
+                Attendee(name: "Sophia", avatar: "\u{1F606}"),
+                Attendee(name: "Chris", avatar: "\u{1F607}"),
+                Attendee(name: "Olivia", avatar: "\u{1F608}"),
+                Attendee(name: "Ethan", avatar: "\u{1F609}")
             ]
         }
     }
@@ -50,8 +50,10 @@ class AttendeeManager: ObservableObject {
     }
     
     func resetStates() {
-        for i in attendees.indices {
-            attendees[i].state = .notCalled
+        attendees = attendees.map { attendee in
+            var updated = attendee
+            updated.state = .notCalled
+            return updated
         }
     }
 }

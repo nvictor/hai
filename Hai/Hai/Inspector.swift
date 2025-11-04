@@ -9,34 +9,31 @@ import SwiftUI
 
 struct Inspector: View {
     @EnvironmentObject private var manager: AttendeeManager
-    @State private var editingAttendee: Attendee?
-    @State private var showingIconPicker = false
+    @State private var editingAttendeeIndex: Int?
     @State private var showingAddAttendee = false
     @State private var newName = ""
-    @State private var newAvatar = "👤"
+    @State private var newAvatar = "\u{1F600}"
+    @State private var showingNewAvatarPicker = false
     
     var body: some View {
         Form {
             Section("Attendees") {
                 List {
-                    ForEach($manager.attendees) { $attendee in
+                    ForEach(manager.attendees.indices, id: \.self) { index in
                         HStack {
-                            Text(attendee.avatar)
-                                .font(.system(size: 24))
-                            TextField("Name", text: $attendee.name)
+                            Text(manager.attendees[index].avatar)
+                                .font(.custom("Fontaku", size: 24))
+                            TextField("Name", text: $manager.attendees[index].name)
                                 .textFieldStyle(.roundedBorder)
                             
                             Button {
-                                editingAttendee = attendee
-                                showingIconPicker = true
+                                editingAttendeeIndex = index
                             } label: {
                                 Image(systemName: "face.smiling")
                             }
                             
                             Button(role: .destructive) {
-                                if let index = manager.attendees.firstIndex(where: { $0.id == attendee.id }) {
-                                    manager.attendees.remove(at: index)
-                                }
+                                manager.attendees.remove(at: index)
                             } label: {
                                 Image(systemName: "trash")
                             }
@@ -62,11 +59,11 @@ struct Inspector: View {
         }
         .padding()
         .frame(minWidth: 300)
-        .sheet(isPresented: $showingIconPicker) {
-            if let attendee = editingAttendee,
-               let index = manager.attendees.firstIndex(where: { $0.id == attendee.id }) {
-                IconPicker(avatar: $manager.attendees[index].avatar)
-            }
+        .sheet(item: Binding(
+            get: { editingAttendeeIndex.map { IndexWrapper(index: $0) } },
+            set: { editingAttendeeIndex = $0?.index }
+        )) { wrapper in
+            IconPicker(avatar: $manager.attendees[wrapper.index].avatar)
         }
         .sheet(isPresented: $showingAddAttendee) {
             VStack(spacing: 20) {
@@ -74,10 +71,10 @@ struct Inspector: View {
                     .font(.headline)
                 
                 Text(newAvatar)
-                    .font(.system(size: 60))
+                    .font(.custom("Fontaku", size: 60))
                 
                 Button("Choose Avatar") {
-                    showingIconPicker = true
+                    showingNewAvatarPicker = true
                 }
                 
                 TextField("Name", text: $newName)
@@ -88,7 +85,7 @@ struct Inspector: View {
                     Button("Cancel") {
                         showingAddAttendee = false
                         newName = ""
-                        newAvatar = "👤"
+                        newAvatar = "\u{1F600}"
                     }
                     .keyboardShortcut(.cancelAction)
                     
@@ -98,7 +95,7 @@ struct Inspector: View {
                         )
                         showingAddAttendee = false
                         newName = ""
-                        newAvatar = "👤"
+                        newAvatar = "\u{1F600}"
                     }
                     .keyboardShortcut(.defaultAction)
                     .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty)
@@ -106,9 +103,15 @@ struct Inspector: View {
             }
             .padding()
             .frame(width: 300, height: 300)
-            .sheet(isPresented: $showingIconPicker) {
+            .sheet(isPresented: $showingNewAvatarPicker) {
                 IconPicker(avatar: $newAvatar)
             }
         }
     }
+}
+
+// Helper struct to make Int Identifiable for sheet(item:)
+struct IndexWrapper: Identifiable {
+    let id = UUID()
+    let index: Int
 }
