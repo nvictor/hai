@@ -14,9 +14,22 @@
 		57D07A7F2EB6F59D00F3AAB0 /* Hai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		57D07A8C2EB6F59E00F3AAB0 /* Exceptions for "Hai" folder in "Hai" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 57D07A7E2EB6F59D00F3AAB0 /* Hai */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		57D07A812EB6F59D00F3AAB0 /* Hai */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				57D07A8C2EB6F59E00F3AAB0 /* Exceptions for "Hai" folder in "Hai" target */,
+			);
 			path = Hai;
 			sourceTree = "<group>";
 		};
