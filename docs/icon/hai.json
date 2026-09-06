@@ -1,0 +1,41 @@
+{
+  "app_concept": "Hai! tracks attendance with a playful roster of anime-style faces.",
+  "primary_metaphor": "A blue squircle attendance mascot with a warm closed-eye smile",
+  "supporting_motifs": [
+    "Asymmetric brow and eye arcs",
+    "Aligned pink cheeks fused to the side edges"
+  ],
+  "composition_family": "fused-with-base",
+  "tone": [
+    "playful",
+    "anime",
+    "native macOS"
+  ],
+  "palette_hints": [
+    "clear classroom blue",
+    "subtle edge-fused soft pink cheeks",
+    "dark ink facial marks"
+  ],
+  "include_symbols": [
+    "squircle face",
+    "eyebrow arcs",
+    "closed eye arcs",
+    "aligned edge-fused cheek marks",
+    "simple U-curve smile"
+  ],
+  "avoid_symbols": [
+    "text",
+    "roster UI",
+    "tiny name labels",
+    "literal checkboxes",
+    "separate face circle",
+    "raised hand",
+    "hair sprout",
+    "nose",
+    "drop shadow",
+    "highlight arc",
+    "highlight dot",
+    "perfectly symmetric facial layout"
+  ],
+  "small_size_risk": "low"
+}
